@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-for x in range(97, 123):
-    if x == 101 or x == 113:
-        continue
-    print("{}" .format(chr(x)), end='')
+for x in range(0, 100):
+    if x == 99:
+        print("{}" .format(x))
+    else:
+        print("{:02d}, " .format(x), end='')
