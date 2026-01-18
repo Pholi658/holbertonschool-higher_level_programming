@@ -1,57 +1,39 @@
-#!/usr/bin/python3
-"""Defines function that converts csv to json"""
-import csv
-import json
+import xml.etree.ElementTree as ET
 
-
-def convert_csv_to_json(csv_file):
-    """Function writes data to data.json
-    Args:
-        csv_file: csv file to convert
-        data.json: json file to write to
+def serialize_to_xml(dictionary, filename):
     """
+    Serialize a Python dictionary into XML format and save it to a file.
 
-    data = []
-    try:
-        with open(csv_file, encoding="utf-8") as csvf:
-            csvReader = csv.DictReader(csvf)
-            for row in csvReader:
-                data.append(row)
-
-    except FileNotFoundError:
-        return False
-
-    try:
-        with open("data.json", "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=4)
-    except:
-        return False
-    return True#!/usr/bin/python3
-"""Defines function that converts csv to json"""
-import csv
-import json
-
-
-def convert_csv_to_json(csv_file):
-    """Function writes data to data.json
     Args:
-        csv_file: csv file to convert
-        data.json: json file to write to
+    - dictionary (dict): Python dictionary to serialize.
+    - filename (str): Filename to save the XML data.
+
+    Returns:
+    - None
     """
+    root = ET.Element('data')
+    for key, value in dictionary.items():
+        child = ET.SubElement(root, key)
+        child.text = str(value)  # Convert value to string for XML serialization
 
-    data = []
-    try:
-        with open(csv_file, encoding="utf-8") as csvf:
-            csvReader = csv.DictReader(csvf)
-            for row in csvReader:
-                data.append(row)
+    tree = ET.ElementTree(root)
+    tree.write(filename)
 
-    except FileNotFoundError:
-        return False
+def deserialize_from_xml(filename):
+    """
+    Deserialize XML data from a file into a Python dictionary.
 
-    try:
-        with open("data.json", "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=4)
-    except:
-        return False
-    return True
+    Args:
+    - filename (str): Filename from which to read XML data.
+
+    Returns:
+    - dict: Deserialized Python dictionary.
+    """
+    tree = ET.parse(filename)
+    root = tree.getroot()
+
+    dictionary = {}
+    for child in root:
+        dictionary[child.tag] = child.text  # Convert text back to appropriate Python type if needed
+
+    return dictionary
