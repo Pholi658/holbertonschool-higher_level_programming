@@ -34,13 +34,14 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
 
         else:
             self.send_response(404)
-            self.send_header("Content-type", "text/plain")
+            self.send_header("Content-type", "application/json")
             self.end_headers()
-            self.wfile.write(b"Not Found")
+            error_response = {
+                "error": "Not Found"
+            }
+            self.wfile.write(json.dumps(error_response).encode("utf-8"))
 
 
-Handler = MyHandler
-
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
+with socketserver.TCPServer(("", PORT), MyHandler) as httpd:
     print(f"Serving at port {PORT}")
     httpd.serve_forever()
