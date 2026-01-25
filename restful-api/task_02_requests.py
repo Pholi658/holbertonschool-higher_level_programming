@@ -8,7 +8,7 @@ def fetch_and_print_posts():
 
     url = "https://jsonplaceholder.typicode.com/posts"
     response = requests.get(url) 
-    print(response.status_code)
+    print(f"Status code: {response.status_code}")
 
     json_data = response.json() 
     for value in json_data:
@@ -28,8 +28,7 @@ def fetch_and_save_posts():
             "body": dict["body"]
         })
     headers = ["id","title","body"]
-    
-    print(filtered_dict)
+
     with open('posts.csv','w',newline="" ) as f:
         write_csv = csv.DictWriter(f,fieldnames=headers)
         write_csv.writeheader()
