@@ -34,12 +34,9 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
 
         else:
             self.send_response(404)
-            self.send_header("Content-type", "application/json")
+            self.send_header("Content-type", "text/plain")
             self.end_headers()
-            error_response = {
-                "error": "Not Found"
-            }
-            self.wfile.write(json.dumps(error_response).encode("utf-8"))
+            self.wfile.write(b"Not Found")
 
 
 with socketserver.TCPServer(("", PORT), MyHandler) as httpd:
