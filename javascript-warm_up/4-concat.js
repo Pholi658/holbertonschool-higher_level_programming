@@ -1,9 +1,7 @@
 #!/usr/bin/node
 
-const arg1 = process.argv[2]
+const arg1 = process.argv[2];
+const arg2 = process.argv[3];
+const result = arg1 + ' is ' + arg2;
 
-const arg2 = process.argv[3]
-
-is_Statement = arg1 + ' is ' + arg2
-
-console.log(is_Statement)
+console.log(result);

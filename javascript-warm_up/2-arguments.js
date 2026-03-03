@@ -1,10 +1,11 @@
 #!/usr/bin/node
 
-const num1 = Number(process.argv[2]);
-const num2 = Number(process.argv[3]);
+const argc = process.argv.length - 2;
 
-if (process.argv.length <= 2){
-    console.log('No arguments found')
-}else {
-    console.log('Arguments found')
+if (argc === 0) {
+    console.log('No argument');
+} else if (argc === 1) {
+    console.log('Argument found');
+} else {
+    console.log('Arguments found');
 }
